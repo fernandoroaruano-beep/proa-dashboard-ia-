@@ -1,0 +1,1521 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PROA Group | Mapa de valor y fricción IA Marketing</title>
+  <style>
+    :root {
+      --blue: #1063ff;
+      --blue-900: #07358f;
+      --blue-050: #eef5ff;
+      --ink: #070707;
+      --steel: #53575a;
+      --soft-ink: #1b2430;
+      --grey: #bfbfbf;
+      --light: #f6f8fb;
+      --paper: #fbfcff;
+      --line: #d9dee7;
+      --teal: #004a5c;
+      --green: #16a34a;
+      --yellow: #f59e0b;
+      --orange: #f97316;
+      --white: #ffffff;
+      --shadow: 0 18px 55px rgba(16, 40, 92, .10);
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      overflow-x: hidden;
+    }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(135deg, rgba(16, 99, 255, .07), transparent 30%),
+        linear-gradient(180deg, #ffffff 0%, #f6f8fb 52%, #ffffff 100%);
+      color: var(--ink);
+      font-family: "Work Sans", "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+      overflow-x: hidden;
+    }
+
+    .shell {
+      min-height: 100vh;
+      display: grid;
+      grid-template-rows: auto 1fr;
+    }
+
+    header {
+      padding: 30px 42px 28px;
+      border-bottom: 1px solid rgba(7, 7, 7, .14);
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(260px, 420px);
+      gap: 34px;
+      align-items: end;
+      background: rgba(255, 255, 255, .86);
+      backdrop-filter: blur(16px);
+      width: 100%;
+      max-width: 100vw;
+    }
+
+    header > *,
+    main > *,
+    .section,
+    .layout,
+    .benefits,
+    .detail,
+    .story-arc,
+    .decision-grid {
+      min-width: 0;
+    }
+
+    .brand {
+      width: 148px;
+      display: block;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 980px;
+      font-size: clamp(32px, 4vw, 58px);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    h2,
+    h3,
+    p,
+    li,
+    span,
+    button {
+      overflow-wrap: anywhere;
+    }
+
+    .subtitle {
+      margin: 14px 0 0;
+      color: var(--soft-ink);
+      max-width: 920px;
+      font-size: 17px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    .header-side {
+      color: var(--soft-ink);
+      font-size: 13px;
+      line-height: 1.5;
+      border-left: 3px solid var(--blue);
+      padding: 18px 0 18px 18px;
+      background: linear-gradient(90deg, rgba(16, 99, 255, .08), transparent);
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .thesis {
+      margin-top: 16px;
+      display: inline-flex;
+      max-width: 960px;
+      border: 1px solid rgba(16, 99, 255, .28);
+      background: var(--blue-050);
+      color: var(--blue-900);
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    main {
+      padding: 28px 42px 42px;
+      display: grid;
+      gap: 22px;
+      max-width: 1540px;
+      width: 100%;
+      margin: 0 auto;
+      max-width: min(1540px, 100vw);
+    }
+
+    .nav {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      padding: 10px;
+      margin: -10px;
+      background: rgba(246, 248, 251, .84);
+      backdrop-filter: blur(14px);
+      border-radius: 12px;
+    }
+
+    button {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.84);
+      border-radius: 8px;
+      min-height: 40px;
+      padding: 8px 14px;
+      color: var(--steel);
+      cursor: pointer;
+      font: inherit;
+      font-size: 13px;
+      line-height: 1.15;
+      transition: background .15s, border-color .15s, color .15s, transform .15s;
+    }
+
+    button:hover {
+      border-color: rgba(16, 99, 255, .42);
+      color: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    button.active {
+      background: var(--blue);
+      border-color: var(--blue);
+      color: var(--white);
+      font-weight: 700;
+    }
+
+    .section { display: none; }
+    .section.active {
+      display: grid;
+      gap: 20px;
+      animation: rise .28s ease both;
+    }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 16px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(220px, 360px);
+      gap: 18px;
+      align-items: end;
+      padding: 4px 0 2px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      max-width: 860px;
+      font-size: clamp(26px, 3vw, 42px);
+      line-height: 1.08;
+    }
+
+    .section-head p {
+      color: var(--steel);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, .76);
+      border-radius: 8px;
+      padding: 18px;
+      min-width: 0;
+      box-shadow: 0 1px 0 rgba(7, 7, 7, .03);
+    }
+
+    .card.white {
+      background: rgba(255,255,255,.96);
+    }
+
+    .card.blue {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.18), transparent 34%),
+        var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+      box-shadow: var(--shadow);
+    }
+
+    .value {
+      color: var(--blue);
+      font-size: 30px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      line-height: 1;
+    }
+
+    .blue .value { color: var(--white); }
+
+    .label {
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .blue .label { color: rgba(255,255,255,.9); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.18;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .muted {
+      color: var(--steel);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .story-arc {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+      gap: 1px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .arc-step {
+      background: var(--white);
+      padding: 18px;
+      min-height: 132px;
+      min-width: 0;
+    }
+
+    .arc-step strong {
+      display: block;
+      color: var(--blue);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 10px;
+    }
+
+    .arc-step span {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 8px;
+      overflow-wrap: anywhere;
+    }
+
+    .arc-step p {
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .decision-panel {
+      background: var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+      display: grid;
+      align-content: space-between;
+      min-height: 310px;
+    }
+
+    .decision-panel h2,
+    .decision-panel .value {
+      color: var(--white);
+    }
+
+    .decision-panel p {
+      color: rgba(255,255,255,.78);
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    .decision-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .decision-item {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--soft-ink);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .decision-item b {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      background: var(--blue);
+      color: var(--white);
+      border-radius: 50%;
+      font-size: 12px;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .flow span {
+      border: 1px solid rgba(16, 99, 255, .24);
+      background: var(--blue-050);
+      color: var(--blue-900);
+      border-radius: 8px;
+      padding: 11px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      text-align: center;
+      line-height: 1.2;
+    }
+
+    .diagnostic-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .friction-card {
+      position: relative;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 190px;
+      overflow: hidden;
+    }
+
+    .friction-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 5px;
+      background: var(--blue);
+    }
+
+    .friction-card strong {
+      display: block;
+      color: var(--blue);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 14px;
+    }
+
+    .friction-card h3 {
+      font-size: 18px;
+      line-height: 1.18;
+      margin-bottom: 10px;
+    }
+
+    .friction-card p {
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .value-map {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(150px, 1fr));
+      gap: 12px;
+    }
+
+    .value-cell {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.92);
+      border-radius: 8px;
+      padding: 15px;
+      min-height: 130px;
+    }
+
+    .value-cell b {
+      display: block;
+      color: var(--ink);
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .value-cell span {
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .priority-lens {
+      display: grid;
+      grid-template-columns: minmax(0, .7fr) minmax(0, 1.3fr);
+      gap: 18px;
+    }
+
+    .lens-score {
+      display: grid;
+      place-items: center;
+      text-align: center;
+      min-height: 260px;
+      background:
+        radial-gradient(circle at 50% 35%, rgba(16, 99, 255, .24), transparent 38%),
+        var(--ink);
+      color: var(--white);
+      border-radius: 8px;
+      padding: 28px;
+    }
+
+    .lens-score span {
+      display: block;
+      color: rgba(255,255,255,.72);
+      font-size: 13px;
+      line-height: 1.4;
+      max-width: 280px;
+    }
+
+    .lens-score b {
+      display: block;
+      margin: 10px 0;
+      font-size: 54px;
+      line-height: 1;
+    }
+
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .product-card {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      gap: 12px;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-height: 300px;
+      box-shadow: var(--shadow);
+    }
+
+    .product-card.featured {
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.18), transparent 32%),
+        var(--ink);
+      color: var(--white);
+      border-color: var(--ink);
+    }
+
+    .product-kicker {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .featured .product-kicker,
+    .featured .product-name,
+    .featured .product-promise {
+      color: var(--white);
+    }
+
+    .product-name {
+      margin: 8px 0 10px;
+      color: var(--ink);
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.04;
+    }
+
+    .product-promise {
+      color: var(--soft-ink);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .product-list {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .product-list li {
+      display: grid;
+      grid-template-columns: 9px 1fr;
+      gap: 10px;
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .product-list li::before {
+      content: "";
+      width: 9px;
+      height: 9px;
+      margin-top: 5px;
+      border-radius: 50%;
+      background: var(--blue);
+    }
+
+    .featured .product-list li {
+      color: rgba(255,255,255,.78);
+    }
+
+    .featured .product-list li::before {
+      background: var(--white);
+    }
+
+    .product-footer {
+      border-top: 1px solid rgba(16, 99, 255, .22);
+      padding-top: 14px;
+      color: var(--blue-900);
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .case-note {
+      border-top: 1px solid rgba(16, 99, 255, .18);
+      padding-top: 12px;
+      display: grid;
+      gap: 7px;
+      font-size: 12px;
+      line-height: 1.35;
+      color: var(--steel);
+    }
+
+    .case-note b {
+      color: var(--blue-900);
+    }
+
+    .featured .case-note {
+      border-top-color: rgba(255,255,255,.22);
+      color: rgba(255,255,255,.78);
+    }
+
+    .featured .case-note b {
+      color: var(--white);
+    }
+
+    .before-after-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(240px, 1fr));
+      gap: 18px;
+    }
+
+    .before-after-card {
+      border: 1px solid var(--line);
+      background: var(--white);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .before-after-card header {
+      display: block;
+      padding: 16px 18px;
+      border: 0;
+      background: var(--blue);
+      color: var(--white);
+    }
+
+    .before-after-card header strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.1;
+      margin-bottom: 4px;
+    }
+
+    .before-after-card header span {
+      color: rgba(255,255,255,.82);
+      font-size: 12px;
+    }
+
+    .compare-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .compare-cell {
+      padding: 16px;
+      min-height: 136px;
+    }
+
+    .compare-cell + .compare-cell {
+      border-left: 1px solid var(--line);
+    }
+
+    .compare-cell b {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .before b {
+      color: #9a3412;
+    }
+
+    .after b {
+      color: var(--blue);
+    }
+
+    .compare-cell p,
+    .case-real p {
+      margin: 0;
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .case-real {
+      padding: 16px;
+      background: var(--blue-050);
+    }
+
+    .case-real b {
+      display: block;
+      color: var(--blue-900);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 8px;
+    }
+
+    .featured .product-footer {
+      border-top-color: rgba(255,255,255,.22);
+      color: var(--white);
+    }
+
+    .product-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--line);
+      gap: 1px;
+    }
+
+    .product-strip div {
+      background: var(--white);
+      padding: 16px;
+      min-height: 116px;
+    }
+
+    .product-strip strong {
+      display: block;
+      color: var(--blue);
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .product-strip span {
+      color: var(--steel);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .phase {
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.88);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 178px;
+      cursor: pointer;
+      transition: border-color .15s, transform .15s;
+    }
+
+    .phase:hover {
+      border-color: var(--blue);
+      transform: translateY(-2px);
+    }
+
+    .phase.active {
+      border-color: var(--blue);
+      box-shadow: inset 0 0 0 2px rgba(16, 99, 255, .12);
+    }
+
+    .phase-num {
+      display: inline-flex;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 7px;
+      padding: 7px 10px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .phase p {
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .detail {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+    }
+
+    .detail ul,
+    .simple-list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--steel);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .accounts {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(140px, 1fr));
+      gap: 12px;
+    }
+
+    .account {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 118px;
+    }
+
+    .account strong {
+      display: block;
+      color: var(--blue);
+      margin-bottom: 7px;
+      font-size: 13px;
+    }
+
+    .account span {
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+      font-size: 13px;
+    }
+
+    .card:has(.table) {
+      overflow-x: auto;
+    }
+
+    th {
+      background: var(--blue);
+      color: #fff;
+      padding: 12px;
+      text-align: left;
+    }
+
+    td {
+      border-top: 1px solid var(--line);
+      padding: 11px 12px;
+      color: var(--steel);
+      vertical-align: top;
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      color: var(--steel);
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--yellow);
+    }
+
+    .dot.green { background: var(--green); }
+    .dot.blue { background: var(--blue); }
+
+    .visual {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-height: 310px;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.02), rgba(0,0,0,.58)),
+        url("imagenes grupo trabajadores y coches/proa-group (57).jpg");
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-end;
+      padding: 24px;
+      color: #fff;
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1.12;
+      box-shadow: var(--shadow);
+    }
+
+    .notice {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      padding: 13px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1100px) {
+      header { grid-template-columns: 1fr; }
+      .layout, .detail, .benefits, .decision-grid, .section-head, .diagnostic-grid, .priority-lens, .product-grid, .before-after-grid { grid-template-columns: 1fr; }
+      .story-arc { grid-template-columns: repeat(2, 1fr); }
+      .timeline { grid-template-columns: repeat(2, 1fr); }
+      .accounts, .kpis, .value-map, .product-strip { grid-template-columns: repeat(2, 1fr); }
+      .flow { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      header, main { padding-left: 20px; padding-right: 20px; }
+      .timeline, .accounts, .kpis, .story-arc, .flow, .value-map, .product-strip { grid-template-columns: 1fr; }
+      h1 { font-size: 29px; line-height: 1.12; }
+      .subtitle { font-size: 15px; }
+      .thesis { display: block; font-size: 13px; }
+      .nav { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <header>
+      <div>
+        <img class="brand" src="LOGOS/Logotipo-ProaGroup-Horizontal-RGB-Azul.png" alt="Proa Group">
+        <p class="eyebrow">Plan ejecutivo · Marketing + IA</p>
+        <h1>3 productos IA para Marketing</h1>
+        <p class="subtitle">Detectar dónde se pierde valor y convertirlo en tres sistemas simples: contenido, Meta Ads y dato comercial.</p>
+        <div class="thesis">No vendemos “IA”. Vendemos tiempo, criterio y mejores decisiones.</div>
+      </div>
+      <div class="header-side">
+        <strong>Pregunta ejecutiva</strong><br>
+        ¿Qué libera más valor primero: creatividad, inversión o dato?<br><br>
+        Horizonte inicial: 90 días
+      </div>
+    </header>
+
+    <main>
+      <div class="nav">
+        <button class="active" data-view="resumen">Resumen ejecutivo</button>
+        <button data-view="productos">3 productos IA</button>
+        <button data-view="diagnostico">Mapa de fricción</button>
+        <button data-view="plan">Plan por fases</button>
+        <button data-view="decision">Decisiones necesarias</button>
+      </div>
+
+      <section id="resumen" class="section active">
+        <div class="story-arc">
+          <div class="arc-step">
+            <strong>1. Detectar</strong>
+            <span>Dónde se pierde valor.</span>
+            <p>Fricción, repetición, dependencia y falta de datos.</p>
+          </div>
+          <div class="arc-step">
+            <strong>2. Empaquetar</strong>
+            <span>Tres productos IA.</span>
+            <p>Content OS, Meta Ads Lab y Data Direction.</p>
+          </div>
+          <div class="arc-step">
+            <strong>3. Validar</strong>
+            <span>Empezar simple.</span>
+            <p>Primero outputs útiles. Después automatización.</p>
+          </div>
+          <div class="arc-step">
+            <strong>4. Escalar</strong>
+            <span>Conectar datos y APIs.</span>
+            <p>Solo cuando el valor esté demostrado.</p>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="card">
+            <div class="value">3 productos</div>
+            <div class="label">Content OS, Meta Ads Lab y Data Direction</div>
+          </div>
+          <div class="card">
+            <div class="value">5</div>
+            <div class="label">cuentas analizadas con el mismo criterio operativo</div>
+          </div>
+          <div class="card">
+            <div class="value">90 días</div>
+            <div class="label">para pasar de diagnóstico a productos IA validados</div>
+          </div>
+          <div class="card blue">
+            <div class="value">Vender</div>
+            <div class="label">empaquetar valor, no funcionalidades sueltas</div>
+          </div>
+        </div>
+
+        <div class="product-strip">
+          <div><strong>Content OS</strong><span>Agente con productos y brandbooks actualizados.</span></div>
+          <div><strong>Meta Ads Lab</strong><span>Diagnóstico en directo con API Facebook.</span></div>
+          <div><strong>Data Direction</strong><span>HubSpot listo para reuniones semanales.</span></div>
+        </div>
+
+        <div class="notice">Idea central: menos trabajo manual para tener más tiempo de ejecutar y mejor criterio para decidir.</div>
+      </section>
+
+      <section id="productos" class="section">
+        <div class="section-head">
+          <h2>El plan se empaqueta en tres productos vendibles.</h2>
+          <p>Todos parten del mismo hilo conductor: detectar fricción, liberar valor y convertir procesos críticos en sistemas medibles.</p>
+        </div>
+
+        <div class="product-grid">
+          <div class="product-card">
+            <div>
+              <div class="product-kicker">Producto 01</div>
+              <div class="product-name">Content OS</div>
+              <p class="product-promise">Contenido y creatividad sin empezar desde cero.</p>
+            </div>
+            <ul class="product-list">
+              <li>Briefings, calendarios y copies.</li>
+              <li>Prompts visuales y guiones de vídeo.</li>
+              <li>Criterio de marca reutilizable.</li>
+            </ul>
+            <div class="product-footer">KPI: menos tiempo, menos rehacer y más ejecución.</div>
+          </div>
+
+          <div class="product-card featured">
+            <div>
+              <div class="product-kicker">Producto 02</div>
+              <div class="product-name">Meta Ads Lab</div>
+              <p class="product-promise">Análisis de campañas para decidir antes.</p>
+            </div>
+            <ul class="product-list">
+              <li>CTR, CPL, coste y frecuencia.</li>
+              <li>Fatiga creativa y alertas.</li>
+              <li>Mantener, pausar, iterar o escalar.</li>
+            </ul>
+            <div class="product-footer">KPI: menos presupuesto perdido y mejor criterio de inversión.</div>
+          </div>
+
+          <div class="product-card">
+            <div>
+              <div class="product-kicker">Producto 03</div>
+              <div class="product-name">Data Direction</div>
+              <p class="product-promise">HubSpot convertido en lectura ejecutiva.</p>
+            </div>
+            <ul class="product-list">
+              <li>Leads, calidad y canal.</li>
+              <li>Seguimiento comercial.</li>
+              <li>Reporting para dirección.</li>
+            </ul>
+            <div class="product-footer">KPI: más visibilidad, más tiempo y mejores decisiones.</div>
+          </div>
+        </div>
+
+        <div class="before-after-grid">
+          <article class="before-after-card">
+            <header>
+              <strong>Content OS</strong>
+              <span>Agente de contenido</span>
+            </header>
+            <div class="compare-row">
+              <div class="compare-cell before">
+                <b>Antes</b>
+                <p>Buscar producto, tono, assets y referencias cada vez.</p>
+              </div>
+              <div class="compare-cell after">
+                <b>Ahora</b>
+                <p>Agente con productos y brandbooks actualizados.</p>
+              </div>
+            </div>
+            <div class="case-real">
+              <b>Caso real</b>
+              <p>Brief, copies y prompts listos para revisar.</p>
+            </div>
+          </article>
+
+          <article class="before-after-card">
+            <header>
+              <strong>Meta Ads Lab</strong>
+              <span>Asistente paid media</span>
+            </header>
+            <div class="compare-row">
+              <div class="compare-cell before">
+                <b>Antes</b>
+                <p>Revisar campañas tarde y con poca lectura.</p>
+              </div>
+              <div class="compare-cell after">
+                <b>Ahora</b>
+                <p>API Facebook + diagnóstico en directo.</p>
+              </div>
+            </div>
+            <div class="case-real">
+              <b>Caso real</b>
+              <p>Saber dónde dejar de invertir y pedir nuevas piezas.</p>
+            </div>
+          </article>
+
+          <article class="before-after-card">
+            <header>
+              <strong>Data Direction</strong>
+              <span>HubSpot ejecutivo</span>
+            </header>
+            <div class="compare-row">
+              <div class="compare-cell before">
+                <b>Antes</b>
+                <p>Preparar datos manualmente antes de reuniones.</p>
+              </div>
+              <div class="compare-cell after">
+                <b>Ahora</b>
+                <p>Situación estratégica semanal ya resumida.</p>
+              </div>
+            </div>
+            <div class="case-real">
+              <b>Caso real</b>
+              <p>2-4h ganadas por semana para ejecutar campañas.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="product-strip">
+          <div><strong>Venta</strong><span>Soluciones, no herramientas.</span></div>
+          <div><strong>Despliegue</strong><span>Manual primero. API después.</span></div>
+          <div><strong>Medición</strong><span>Tiempo, coste, leads y decisión.</span></div>
+        </div>
+      </section>
+
+      <section id="diagnostico" class="section">
+        <div class="section-head">
+          <h2>Mapa simple de fricción.</h2>
+          <p>Cada problema debe caer en un producto.</p>
+        </div>
+
+        <div class="value-map">
+          <div class="value-cell"><b>Dolor creativo</b><span>Content OS</span></div>
+          <div class="value-cell"><b>Dolor de inversión</b><span>Meta Ads Lab</span></div>
+          <div class="value-cell"><b>Dolor de dato</b><span>Data Direction</span></div>
+          <div class="value-cell"><b>Regla</b><span>Valor × Fricción</span></div>
+        </div>
+      </section>
+
+      <section id="plan" class="section">
+        <div class="section-head">
+          <h2>Roadmap simple.</h2>
+          <p>Diagnosticar, lanzar piloto, medir y escalar.</p>
+        </div>
+        <div class="timeline" id="timeline"></div>
+      </section>
+
+      <section id="impacto" class="section">
+        <div class="section-head">
+          <h2>El impacto se mide por producto: creatividad, inversión y dato.</h2>
+          <p>La venta interna es más fuerte si cada bloque tiene una promesa de negocio clara y una métrica defendible.</p>
+        </div>
+        <div class="benefits">
+          <div class="card white">
+            <h2>Para gerencia</h2>
+            <ul class="simple-list">
+              <li>Content OS: más velocidad creativa y menos dependencia de memoria individual.</li>
+              <li>Meta Ads Lab: menos presupuesto desperdiciado y más aprendizaje por campaña.</li>
+              <li>Data Direction: lectura ejecutiva de leads, seguimiento y valor comercial.</li>
+              <li>Modelo modular replicable a Ventas, Postventa, Administración y RRHH.</li>
+            </ul>
+          </div>
+          <div class="card white">
+            <h2>Para accounts</h2>
+            <ul class="simple-list">
+              <li>Menos tiempo en tareas repetitivas y búsqueda de contexto.</li>
+              <li>Procesos más simples para briefings, campañas, contenido y reporting.</li>
+              <li>Mayor velocidad ante promociones, lanzamientos, tests y urgencias.</li>
+              <li>Aprendizaje compartido dentro de cada producto.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card white">
+          <h2>Antes vs. con enfoque de valor y fricción</h2>
+          <table class="table">
+            <thead>
+              <tr><th>Proceso</th><th>Riesgo actual</th><th>Con el plan IA</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Brief creativo</td><td>Depende de contexto disperso y de quién recuerde cada marca.</td><td>Brief estructurado con tono, objetivo, restricciones, assets y aprendizaje histórico.</td></tr>
+              <tr><td>Calendario de contenido</td><td>Trabajo manual repetido que consume criterio en tareas de bajo valor.</td><td>Base generada en horas, revisada por account y alineada con prioridades de marca.</td></tr>
+              <tr><td>Reporting</td><td>Se reconstruyen datos y aprendizajes cada mes sin memoria común.</td><td>Resumen ejecutivo reutilizable por marca, con foco en decisiones y próximos pasos.</td></tr>
+              <tr><td>Paid media</td><td>La fatiga creativa o el coste pueden detectarse tarde.</td><td>Lectura de señales, recomendaciones de iteración y aprendizaje por campaña.</td></tr>
+              <tr><td>Comentarios y reseñas</td><td>Gestión reactiva en procesos sensibles de reputación.</td><td>Clasificación, prioridad, propuesta de respuesta y escalado humano en fases 5-6.</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="codex" class="section">
+        <div class="section-head">
+          <h2>Codex convierte los puntos de fricción en métodos reutilizables.</h2>
+          <p>El punto no es escribir mejores prompts: es capturar criterio, reducir dependencia individual y hacer que los procesos críticos tengan una forma común de ejecutarse.</p>
+        </div>
+        <div class="layout">
+          <div class="card white">
+            <h2>Qué es Codex dentro de este plan</h2>
+            <p class="muted">Codex funciona como el entorno donde Marketing transforma conocimiento disperso en instrucciones, flujos y entregables reutilizables. Sirve para que lo que hoy depende de memoria individual pase a estar documentado, activable y mejorable.</p>
+            <br>
+            <h2>Por qué es importante tenerlo todo ahí</h2>
+            <ul class="simple-list">
+              <li>El contexto no se pierde entre chats, personas o documentos sueltos.</li>
+              <li>Los procesos sensibles tienen reglas, límites y criterios claros.</li>
+              <li>Los cuellos de botella repetidos se convierten en Skills: briefing, calendario, copy, reporting, reseñas y paid media.</li>
+              <li>La calidad mejora porque el sistema aprende de ejemplos aprobados, correcciones y criterios comunes.</li>
+            </ul>
+          </div>
+          <div class="card blue">
+            <h2>Idea clave para gerencia</h2>
+            <p>Codex no sustituye al equipo. Reduce dependencia operativa, hace visible el criterio y permite que cada account trabaje con un sistema calibrado para su marca.</p>
+            <br>
+            <p>El valor está en pasar de “cada persona recuerda cómo se hace” a “el departamento tiene un método común que cualquiera puede activar, revisar y mejorar”.</p>
+          </div>
+        </div>
+
+        <div class="card white">
+          <h2>Funcionamiento simplificado</h2>
+          <table class="table">
+            <thead>
+              <tr><th>Elemento</th><th>Qué contiene</th><th>Para qué sirve</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Contexto</td><td>Brandbooks, campañas, modelos, tono, restricciones, ejemplos aprobados y procesos internos.</td><td>Evita empezar cada trabajo desde cero y reduce errores de marca.</td></tr>
+              <tr><td>Skills</td><td>Instrucciones especializadas para tareas concretas: calendario, reporting, briefs, copies, ideas, reseñas o Meta Ads.</td><td>Convierte tareas repetitivas en procesos consistentes y rápidos.</td></tr>
+              <tr><td>Entregables</td><td>Copys, calendarios, informes, briefs, prompts visuales, respuestas a reseñas y recomendaciones.</td><td>Genera outputs listos para revisar, aprobar y publicar.</td></tr>
+              <tr><td>Aprendizaje</td><td>Correcciones, criterios de validación y ejemplos que sí funcionan por marca.</td><td>Hace que el sistema mejore con el uso y mantenga coherencia entre cuentas.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="card white">
+          <h2>Ejemplo práctico</h2>
+          <div class="detail">
+            <div>
+              <h3>Antes</h3>
+              <ul class="simple-list">
+                <li>El account busca campaña, tono, restricciones y referencias.</li>
+                <li>Se escribe el copy o briefing desde cero.</li>
+                <li>Diseño o dirección corrige por falta de contexto.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Con Codex + Skills</h3>
+              <ul class="simple-list">
+                <li>Se activa la Skill adecuada.</li>
+                <li>Codex usa el contexto de la marca y el proceso definido.</li>
+                <li>Entrega una primera versión coherente para revisión.</li>
+              </ul>
+            </div>
+            <div>
+              <h3>Resultado</h3>
+              <ul class="simple-list">
+                <li>Menos tiempo operativo.</li>
+                <li>Mayor consistencia entre marcas.</li>
+                <li>Más aprendizaje acumulado para el departamento.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contenido" class="section">
+        <div class="section-head">
+          <h2>Producto 01 · Content OS: creatividad más rápida sin perder criterio de marca.</h2>
+          <p>Para equipos que pierden tiempo rehaciendo copies, buscando contexto, generando variantes y traduciendo briefings en piezas visuales.</p>
+        </div>
+        <div class="layout">
+          <div class="card white">
+            <h2>Qué compra dirección</h2>
+            <p class="muted">Un sistema operativo de contenido: reúne contexto de marca, convierte campañas en briefings claros y produce bases de copy, prompts visuales y guiones de vídeo listos para revisión.</p>
+            <br>
+            <h2>Flujo del producto</h2>
+            <table class="table">
+              <thead>
+                <tr><th>Módulo</th><th>Qué hace</th><th>Valor vendible</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Brief Builder</td><td>Recibe marca, modelo, campaña, objetivo, formato y plataforma.</td><td>Reduce reuniones, evita briefs incompletos y ordena contexto.</td></tr>
+                <tr><td>Copy & Calendar Engine</td><td>Genera ideas, copies, parrillas y adaptaciones por canal.</td><td>Menos trabajo repetitivo y mayor consistencia entre cuentas.</td></tr>
+                <tr><td>Visual Prompt Studio</td><td>Genera instrucciones de encuadre, luz, estilo, vehículo y composición.</td><td>Creatividades más cercanas a marca desde la primera versión.</td></tr>
+                <tr><td>Video Script Pack</td><td>Define guion, escena inicial/final, cámara, ritmo y transición.</td><td>Reels y piezas audiovisuales en horas, no días.</td></tr>
+                <tr><td>Creative API Ready</td><td>Prepara conexión futura con Freepik u otras herramientas visuales.</td><td>Escala producción y test creativo cuando el proceso ya esté validado.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card blue">
+            <h2>Promesa comercial</h2>
+            <p>Content OS libera al equipo de empezar desde cero y convierte el criterio de marca en producción creativa repetible.</p>
+            <br>
+            <p>No vende volumen por volumen. Vende menos fricción, más consistencia y más opciones creativas útiles para campañas reales.</p>
+          </div>
+        </div>
+
+        <div class="benefits">
+          <div class="card white">
+            <h2>Casos de uso prioritarios</h2>
+            <ul class="simple-list">
+              <li>Prompts para anuncios de Meta Ads por modelo y campaña.</li>
+              <li>Creatividades para lanzamientos, ofertas y renting.</li>
+              <li>Guiones visuales para Reels y stories.</li>
+              <li>Adaptación de una misma idea a varias marcas y formatos.</li>
+            </ul>
+          </div>
+          <div class="card white">
+            <h2>Indicadores a medir</h2>
+            <ul class="simple-list">
+              <li>Tiempo de producción por creatividad.</li>
+              <li>Número de variantes por campaña.</li>
+              <li>Ratio de piezas aprobadas en primera revisión.</li>
+              <li>Rendimiento creativo conectado a Meta Ads.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="meta" class="section">
+        <div class="section-head">
+          <h2>Producto 02 · Meta Ads Lab: menos presupuesto desperdiciado, más aprendizaje accionable.</h2>
+          <p>Para campañas donde cada semana de reacción lenta puede quemar inversión, fatigar audiencias o repetir creatividades que ya no funcionan.</p>
+        </div>
+        <div class="layout">
+          <div class="card white">
+            <h2>Qué compra dirección</h2>
+            <p class="muted">Un laboratorio de análisis e iteración para Meta Ads: lee señales de rendimiento, detecta fatiga creativa y propone decisiones claras para mantener, pausar, iterar o escalar.</p>
+            <br>
+            <table class="table">
+              <thead>
+                <tr><th>Módulo</th><th>Qué analiza</th><th>Decisión que acelera</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Performance Reader</td><td>CTR, CPL, leads, frecuencia, coste y evolución por anuncio.</td><td>Mantener, pausar, iterar o escalar.</td></tr>
+                <tr><td>Fatigue Detector</td><td>Caída de CTR, subida de coste o exceso de frecuencia.</td><td>Activar nuevas variantes antes de perder eficiencia.</td></tr>
+                <tr><td>Creative Iteration Pack</td><td>Mensaje, modelo, oferta, formato y aprendizaje por marca.</td><td>Generar nuevas variantes de copy, imagen o vídeo.</td></tr>
+                <tr><td>Learning Memory</td><td>Qué creatividad funcionó, dónde y por qué.</td><td>No repetir errores y construir aprendizaje reutilizable.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card blue">
+            <h2>Promesa comercial</h2>
+            <p>Meta Ads Lab convierte inversión publicitaria en aprendizaje continuo, no solo en informes de rendimiento.</p>
+            <br>
+            <p>Primero puede funcionar con exports o informes manuales. Después se conecta por API con permisos controlados.</p>
+          </div>
+        </div>
+
+        <div class="kpis">
+          <div class="card"><div class="value">CTR</div><div class="label">detección de pérdida de interés creativo</div></div>
+          <div class="card"><div class="value">CPL</div><div class="label">control del coste por lead por marca</div></div>
+          <div class="card"><div class="value">Frecuencia</div><div class="label">alerta de saturación de audiencia</div></div>
+          <div class="card blue"><div class="value">Iterar</div><div class="label">nuevos copies, imágenes y vídeos para test A/B</div></div>
+        </div>
+      </section>
+
+      <section id="hubspot" class="section">
+        <div class="section-head">
+          <h2>Producto 03 · Data Direction: HubSpot como sistema de decisión, no solo CRM.</h2>
+          <p>Para saber qué acciones generan demanda, dónde se pierde seguimiento comercial y qué necesita ver dirección para decidir con datos.</p>
+        </div>
+        <div class="layout">
+          <div class="card white">
+            <h2>Qué compra dirección</h2>
+            <p class="muted">Una capa ejecutiva de dato comercial: conecta campañas, leads, calidad, seguimiento, emails y reporting para entender dónde se crea o se pierde valor.</p>
+            <br>
+            <table class="table">
+              <thead>
+                <tr><th>Módulo</th><th>Qué muestra</th><th>Decisión que facilita</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>Demand View</td><td>Leads por marca, campaña, canal y formulario.</td><td>Qué campañas merecen más inversión.</td></tr>
+                <tr><td>Lead Quality</td><td>MQL/SQL, fuente, modelo de interés y estado del lead.</td><td>Qué leads aportan valor comercial real.</td></tr>
+                <tr><td>Follow-up Radar</td><td>Emails, llamadas, tareas y tiempos de respuesta.</td><td>Dónde se pierden oportunidades.</td></tr>
+                <tr><td>Nurturing Intelligence</td><td>Segmentos, aperturas, clics y evolución por interés.</td><td>Qué mensajes y audiencias activar.</td></tr>
+                <tr><td>Executive Board</td><td>Resumen ejecutivo por account, marca y prioridad.</td><td>Qué debe decidir dirección este mes.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card blue">
+            <h2>Promesa comercial</h2>
+            <p>Data Direction convierte HubSpot en una herramienta de dirección: menos dato disperso, más lectura ejecutiva y más trazabilidad entre marketing y ventas.</p>
+            <br>
+            <p>La conexión debe ser progresiva: primero lectura o exportaciones controladas; después scopes específicos para campañas, contactos, emails y reporting.</p>
+          </div>
+        </div>
+
+        <div class="benefits">
+          <div class="card white">
+            <h2>KPIs recomendados</h2>
+            <ul class="simple-list">
+              <li>Leads por marca, campaña y canal.</li>
+              <li>MQL/SQL y tasa de conversión comercial.</li>
+              <li>Tiempo medio de respuesta.</li>
+              <li>Estado del pipeline por campaña.</li>
+              <li>Rendimiento de emails y nurturing.</li>
+            </ul>
+          </div>
+          <div class="card white">
+            <h2>Qué aporta al plan IA</h2>
+            <ul class="simple-list">
+              <li>Contexto real para crear contenidos más útiles.</li>
+              <li>Aprendizaje sobre qué campañas generan demanda.</li>
+              <li>Reporting de dirección basado en datos comerciales.</li>
+              <li>Base para automatizaciones futuras.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section id="decision" class="section">
+        <div class="section-head">
+          <h2>Decisión.</h2>
+          <p>Elegir piloto y medir valor rápido.</p>
+        </div>
+        <div class="product-strip">
+          <div><strong>1. Piloto</strong><span>Elegir un producto.</span></div>
+          <div><strong>2. Inputs</strong><span>Datos, assets y ejemplos.</span></div>
+          <div><strong>3. KPI</strong><span>Tiempo, coste o leads.</span></div>
+        </div>
+
+        <div class="card blue">
+          <h2>Cierre</h2>
+          <p>Primero ganar tiempo. Después usar ese tiempo para ejecutar mejor y decidir con más criterio.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const views = document.querySelectorAll(".section");
+    document.querySelectorAll(".nav button").forEach(button => {
+      button.addEventListener("click", () => {
+        document.querySelectorAll(".nav button").forEach(item => item.classList.remove("active"));
+        button.classList.add("active");
+        views.forEach(view => view.classList.remove("active"));
+        document.getElementById(button.dataset.view).classList.add("active");
+      });
+    });
+
+    const phases = [
+      {
+        label: "Fase 1",
+        title: "Diagnóstico",
+        period: "Dónde se pierde valor"
+      },
+      {
+        label: "Fase 2",
+        title: "Producto piloto",
+        period: "Content, Meta o Dato"
+      },
+      {
+        label: "Fase 3",
+        title: "Medición",
+        period: "KPI y aprendizaje"
+      },
+      {
+        label: "Fase 4",
+        title: "Escalado",
+        period: "APIs y automatización"
+      }
+    ];
+
+    const timeline = document.getElementById("timeline");
+    const phaseTitle = document.getElementById("phaseTitle");
+    const phaseActions = document.getElementById("phaseActions");
+    const phaseResults = document.getElementById("phaseResults");
+    const phaseOwners = document.getElementById("phaseOwners");
+
+    function list(items) {
+      return items.map(item => `<li>${item}</li>`).join("");
+    }
+
+    function setPhase(index) {
+      document.querySelectorAll(".phase").forEach((phase, phaseIndex) => {
+        phase.classList.toggle("active", phaseIndex === index);
+      });
+      const phase = phases[index];
+      if (!phaseTitle) return;
+      phaseTitle.textContent = `${phase.label} · ${phase.title}`;
+      phaseActions.innerHTML = list(phase.actions || []);
+      phaseResults.innerHTML = list(phase.results || []);
+      phaseOwners.innerHTML = list(phase.owners || []);
+    }
+
+    timeline.innerHTML = phases.map((phase, index) => `
+      <div class="phase ${index === 0 ? "active" : ""}" data-phase="${index}">
+        <div class="phase-num">${phase.label}</div>
+        <h3>${phase.title}</h3>
+        <p>${phase.period}</p>
+      </div>
+    `).join("");
+
+    document.querySelectorAll(".phase").forEach(phase => {
+      phase.addEventListener("click", () => setPhase(Number(phase.dataset.phase)));
+    });
+
+    setPhase(0);
+  </script>
+</body>
+</html>

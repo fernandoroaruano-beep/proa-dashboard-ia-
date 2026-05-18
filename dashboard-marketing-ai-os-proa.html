@@ -1,0 +1,801 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PROA Group | Marketing AI Operating System Dashboard</title>
+  <style>
+    :root {
+      --blue: #1063ff;
+      --ink: #0a0a0a;
+      --steel: #53575a;
+      --muted: #bfbfbf;
+      --panel: #f5f7fa;
+      --line: #d8dde5;
+      --teal: #004a5c;
+      --green: #16a34a;
+      --yellow: #f59e0b;
+      --red: #dc2626;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: #ffffff;
+      color: var(--ink);
+      font-family: "Work Sans", "Segoe UI", Arial, sans-serif;
+      letter-spacing: 0;
+    }
+
+    button, select {
+      font: inherit;
+    }
+
+    .app {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 248px minmax(0, 1fr);
+      background: var(--white);
+    }
+
+    aside {
+      border-right: 1px solid var(--line);
+      padding: 30px 24px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      background: #fff;
+    }
+
+    .brand {
+      width: 158px;
+      display: block;
+      margin-bottom: 38px;
+    }
+
+    .eyebrow {
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    h1 {
+      font-size: 24px;
+      line-height: 1.08;
+      margin: 0 0 16px;
+      font-weight: 500;
+    }
+
+    .side-note {
+      font-size: 13px;
+      color: var(--steel);
+      line-height: 1.45;
+      margin-bottom: 28px;
+    }
+
+    nav {
+      display: grid;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .nav-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--steel);
+      text-align: left;
+      padding: 11px 12px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    .nav-btn.active {
+      background: var(--blue);
+      color: #fff;
+      font-weight: 700;
+    }
+
+    main {
+      padding: 32px 38px 44px;
+      min-width: 0;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 22px;
+      align-items: flex-start;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 22px;
+      margin-bottom: 28px;
+    }
+
+    .topbar h2 {
+      margin: 0;
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 1.12;
+    }
+
+    .topbar p {
+      margin: 9px 0 0;
+      color: var(--steel);
+      max-width: 760px;
+      line-height: 1.45;
+      font-size: 15px;
+    }
+
+    .controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      min-width: 320px;
+    }
+
+    .select-wrap {
+      display: grid;
+      gap: 6px;
+    }
+
+    label {
+      font-size: 11px;
+      color: var(--steel);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    select {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      min-width: 210px;
+      padding: 10px 12px;
+      background: var(--white);
+      color: var(--ink);
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .kpis {
+      grid-template-columns: repeat(4, minmax(160px, 1fr));
+    }
+
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 18px;
+      min-width: 0;
+    }
+
+    .card.white {
+      background: var(--white);
+    }
+
+    .card.blue {
+      background: var(--blue);
+      color: var(--white);
+      border-color: var(--blue);
+    }
+
+    .kpi-value {
+      font-size: 28px;
+      color: var(--blue);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+
+    .blue .kpi-value {
+      color: var(--white);
+    }
+
+    .kpi-label {
+      font-size: 13px;
+      color: var(--steel);
+      line-height: 1.3;
+    }
+
+    .blue .kpi-label {
+      color: rgba(255,255,255,.9);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: grid;
+      gap: 22px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(320px, .9fr);
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .muted {
+      color: var(--steel);
+      line-height: 1.45;
+      font-size: 14px;
+    }
+
+    .pipeline {
+      display: grid;
+      gap: 11px;
+    }
+
+    .pipe-row {
+      display: grid;
+      grid-template-columns: 170px minmax(0, 1fr);
+      gap: 12px;
+      align-items: center;
+    }
+
+    .pipe-label {
+      color: var(--steel);
+      font-size: 13px;
+    }
+
+    .pipe-bar {
+      height: 28px;
+      background: #e8edf5;
+      border-radius: 7px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .pipe-fill {
+      height: 100%;
+      background: var(--blue);
+      border-radius: 7px;
+      min-width: 36px;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(120px, 1fr));
+      gap: 12px;
+    }
+
+    .phase {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      min-height: 156px;
+      position: relative;
+    }
+
+    .phase.current {
+      border-color: var(--blue);
+      box-shadow: inset 0 0 0 2px rgba(16,99,255,.12);
+    }
+
+    .phase-num {
+      background: var(--blue);
+      color: #fff;
+      border-radius: 7px;
+      display: inline-flex;
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 800;
+      margin-bottom: 14px;
+    }
+
+    .phase h3 {
+      margin: 0 0 8px;
+      font-size: 14px;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.38;
+    }
+
+    .matrix {
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr 1.7fr;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .matrix div {
+      padding: 13px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      font-size: 13px;
+      min-height: 50px;
+    }
+
+    .matrix div:nth-child(3n) { border-right: 0; }
+    .matrix div:nth-last-child(-n+3) { border-bottom: 0; }
+
+    .matrix .head {
+      background: var(--blue);
+      color: #fff;
+      font-weight: 800;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(130px, 1fr));
+      gap: 14px;
+    }
+
+    .skill-col {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px 12px;
+      min-height: 210px;
+    }
+
+    .skill-col h3 {
+      color: var(--blue);
+      margin: 0 0 18px;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .skill-col p {
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.35;
+      text-align: center;
+      margin: 0;
+      white-space: pre-line;
+    }
+
+    .skill-list {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(180px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-item {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 12px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      align-items: center;
+      gap: 10px;
+      min-height: 58px;
+    }
+
+    .skill-item strong {
+      color: var(--blue);
+      font-size: 12px;
+    }
+
+    .skill-item span {
+      color: var(--steel);
+      font-size: 12px;
+    }
+
+    .comparison {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .comparison table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font-size: 13px;
+    }
+
+    th {
+      background: var(--blue);
+      color: #fff;
+      text-align: left;
+      padding: 11px;
+    }
+
+    td {
+      border-top: 1px solid var(--line);
+      padding: 10px 11px;
+      color: var(--steel);
+    }
+
+    .status-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 12px;
+    }
+
+    .status {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 14px;
+      background: var(--panel);
+      min-height: 106px;
+    }
+
+    .status strong {
+      display: block;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+
+    .status span {
+      color: var(--steel);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .alert {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      color: #9a3412;
+      padding: 13px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .visual {
+      min-height: 260px;
+      background-size: cover;
+      background-position: center;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .visual::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.45));
+    }
+
+    .visual-caption {
+      position: absolute;
+      z-index: 1;
+      left: 22px;
+      right: 22px;
+      bottom: 22px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.12;
+    }
+
+    @media (max-width: 1100px) {
+      .app { grid-template-columns: 1fr; }
+      aside { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+      nav { grid-template-columns: repeat(3, 1fr); }
+      .topbar { flex-direction: column; }
+      .controls { justify-content: flex-start; }
+      .kpis, .timeline, .skills-grid, .skill-list, .status-row { grid-template-columns: repeat(2, 1fr); }
+      .split, .comparison { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 680px) {
+      main { padding: 24px 18px; }
+      nav, .kpis, .timeline, .skills-grid, .skill-list, .status-row { grid-template-columns: 1fr; }
+      .matrix { grid-template-columns: 1fr; }
+      .matrix div { border-right: 0; }
+      .topbar h2 { font-size: 24px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside>
+      <img class="brand" src="LOGOS/Logotipo-ProaGroup-Horizontal-RGB-Azul.png" alt="Proa Group">
+      <div class="eyebrow">Executive preview</div>
+      <h1>Marketing AI Operating System</h1>
+      <p class="side-note">Previsualización interactiva del plan de implantación IA para Marketing. Sin datos reales conectados todavía: los KPIs muestran estructura, objetivos e hipótesis operativas.</p>
+      <nav>
+        <button class="nav-btn active" data-section="overview">Resumen</button>
+        <button class="nav-btn" data-section="accounts">Accounts</button>
+        <button class="nav-btn" data-section="skills">Skills</button>
+        <button class="nav-btn" data-section="roadmap">90 días</button>
+        <button class="nav-btn" data-section="governance">Gobierno</button>
+        <button class="nav-btn" data-section="integrations">Integraciones</button>
+      </nav>
+    </aside>
+
+    <main>
+      <div class="topbar">
+        <div>
+          <h2 id="pageTitle">De prompts aislados a sistema operativo de marketing</h2>
+          <p id="pageSubtitle">Una capa común de inteligencia que entiende cada marca, account, campaña y proceso interno para producir con más velocidad, consistencia y control.</p>
+        </div>
+        <div class="controls">
+          <div class="select-wrap">
+            <label for="accountSelect">Account</label>
+            <select id="accountSelect">
+              <option value="all">Todas las cuentas</option>
+              <option value="premium">Proa Premium</option>
+              <option value="dibauto">Dibautoplus</option>
+              <option value="hyundai">Proa Automoción</option>
+              <option value="moto">Proa Bikes / Motorrad</option>
+              <option value="balear">Proa Motor Balear</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <section id="overview" class="section active">
+        <div class="grid kpis">
+          <div class="card">
+            <div class="kpi-value">5</div>
+            <div class="kpi-label">accounts iniciales con contexto propio</div>
+          </div>
+          <div class="card">
+            <div class="kpi-value">12</div>
+            <div class="kpi-label">Skills fundamentales para Fase 1</div>
+          </div>
+          <div class="card">
+            <div class="kpi-value">50+</div>
+            <div class="kpi-label">capacidades modulares previstas</div>
+          </div>
+          <div class="card blue">
+            <div class="kpi-value">90 días</div>
+            <div class="kpi-label">de piloto a sistema operativo validado</div>
+          </div>
+        </div>
+
+        <div class="split">
+          <div class="card white">
+            <h3 class="panel-title">El problema: demasiada fricción antes de crear</h3>
+            <div class="pipeline">
+              <div class="pipe-row"><div class="pipe-label">Brief incompleto</div><div class="pipe-bar"><div class="pipe-fill" style="width: 78%">Alto</div></div></div>
+              <div class="pipe-row"><div class="pipe-label">Búsqueda de contexto</div><div class="pipe-bar"><div class="pipe-fill" style="width: 86%">Muy alto</div></div></div>
+              <div class="pipe-row"><div class="pipe-label">Creación manual</div><div class="pipe-bar"><div class="pipe-fill" style="width: 74%">Alto</div></div></div>
+              <div class="pipe-row"><div class="pipe-label">Revisión y ajustes</div><div class="pipe-bar"><div class="pipe-fill" style="width: 68%">Medio</div></div></div>
+              <div class="pipe-row"><div class="pipe-label">Aprendizaje reutilizable</div><div class="pipe-bar"><div class="pipe-fill" style="width: 38%">Bajo</div></div></div>
+            </div>
+          </div>
+          <div class="visual" style="background-image:url('imagenes grupo trabajadores y coches/proa-group (57).jpg')">
+            <div class="visual-caption">Marca → Estrategia → Contenido → Producción → Reporting</div>
+          </div>
+        </div>
+
+        <div class="alert">Nota BI: este dashboard no usa aún métricas reales de Meta Ads, HubSpot o ventas. Es una maqueta ejecutiva para visualizar el modelo operativo, los KPIs objetivo y la arquitectura de decisión.</div>
+      </section>
+
+      <section id="accounts" class="section">
+        <div class="card white">
+          <h3 class="panel-title">IA personalizada por account, marca y realidad comercial</h3>
+          <div class="matrix" id="accountMatrix"></div>
+        </div>
+        <div class="grid kpis" id="accountCards"></div>
+      </section>
+
+      <section id="skills" class="section">
+        <div class="card white">
+          <h3 class="panel-title">Catálogo modular de Skills de Marketing IA</h3>
+          <div class="skills-grid">
+            <div class="skill-col"><h3>Marca</h3><p>Brandbook Interpreter&#10;Brand Voice Guardian&#10;Model Knowledge Builder</p></div>
+            <div class="skill-col"><h3>Estrategia</h3><p>Campaign Strategist&#10;Launch Planner&#10;Offer Activation Builder</p></div>
+            <div class="skill-col"><h3>Contenido</h3><p>Social Content Factory&#10;Automotive Copywriter Pro&#10;Reel & Video Concept Director</p></div>
+            <div class="skill-col"><h3>Producción</h3><p>Designer Brief Builder&#10;Visual Prompt Generator&#10;Asset Adaptation Matrix</p></div>
+            <div class="skill-col"><h3>Account & Reporting</h3><p>Account Meeting Prep&#10;Executive Marketing Report Generator&#10;Campaign Learning Log</p></div>
+            <div class="skill-col"><h3>Automatización</h3><p>HubSpot&#10;Meta Ads&#10;Freepik / Magnific&#10;SharePoint</p></div>
+          </div>
+        </div>
+
+        <div class="card white">
+          <h3 class="panel-title">Primer despliegue: 12 Skills fundamentales</h3>
+          <div class="skill-list" id="skillList"></div>
+        </div>
+      </section>
+
+      <section id="roadmap" class="section">
+        <div class="card white">
+          <h3 class="panel-title">Plan de 90 días para pasar de piloto a sistema operativo</h3>
+          <div class="timeline" id="timeline"></div>
+        </div>
+        <div class="comparison">
+          <div class="card white">
+            <h3 class="panel-title">Antes</h3>
+            <table>
+              <tbody>
+                <tr><td>Calendario de contenido</td><td>2 días</td></tr>
+                <tr><td>Brief para diseño</td><td>Reunión previa</td></tr>
+                <tr><td>Reporting mensual</td><td>Media jornada</td></tr>
+                <tr><td>Copys por canal</td><td>Trabajo manual</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="card white">
+            <h3 class="panel-title">Con Marketing AI OS</h3>
+            <table>
+              <tbody>
+                <tr><td>Calendario de contenido</td><td>2 horas con contexto de marca</td></tr>
+                <tr><td>Brief para diseño</td><td>Estructurado desde campaña y objetivo</td></tr>
+                <tr><td>Reporting mensual</td><td>Informe ejecutivo reutilizable</td></tr>
+                <tr><td>Copys por canal</td><td>Adaptación multicanal desde una intención</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="governance" class="section">
+        <div class="card white">
+          <h3 class="panel-title">IA con control: validación y mejora continua</h3>
+          <div class="status-row">
+            <div class="status"><strong>Crear</strong><span>La Skill genera contenido, brief, informe o propuesta.</span></div>
+            <div class="status"><strong>Revisar</strong><span>Account valida tono, precisión y utilidad.</span></div>
+            <div class="status"><strong>Aprobar</strong><span>Solo se publica lo que cumple criterios de marca.</span></div>
+            <div class="status"><strong>Aprender</strong><span>Se registra qué funciona y qué debe corregirse.</span></div>
+            <div class="status"><strong>Mejorar Skill</strong><span>El sistema evoluciona con ejemplos aprobados.</span></div>
+          </div>
+        </div>
+
+        <div class="grid kpis">
+          <div class="card"><div class="kpi-value">Mensual</div><div class="kpi-label">validación de outputs por account</div></div>
+          <div class="card"><div class="kpi-value">1-2h</div><div class="kpi-label">calibración inicial por cuenta</div></div>
+          <div class="card"><div class="kpi-value">100%</div><div class="kpi-label">criterios claros antes de publicar</div></div>
+          <div class="card blue"><div class="kpi-value">Control</div><div class="kpi-label">biblioteca de ejemplos aprobados por marca</div></div>
+        </div>
+      </section>
+
+      <section id="integrations" class="section">
+        <div class="card white">
+          <h3 class="panel-title">De IA asistida a automatización conectada</h3>
+          <div class="timeline">
+            <div class="phase current"><div class="phase-num">Fase 1</div><h3>Conocimiento + Skills</h3><p>Brandbooks, contexto de campañas, tono, modelos y procesos.</p></div>
+            <div class="phase"><div class="phase-num">Fase 2</div><h3>Producción avanzada</h3><p>Freepik, Magnific y generación visual asistida.</p></div>
+            <div class="phase"><div class="phase-num">Fase 3</div><h3>Datos y automatización</h3><p>HubSpot, Meta Ads y SharePoint con permisos controlados.</p></div>
+            <div class="phase"><div class="phase-num">Fase 4</div><h3>Optimización predictiva</h3><p>Alertas, recomendaciones y mejora del rendimiento.</p></div>
+          </div>
+        </div>
+
+        <div class="card white">
+          <h3 class="panel-title">Permisos progresivos</h3>
+          <p class="muted">HubSpot trabaja con scopes que delimitan qué datos y endpoints puede usar una app. Esto permite plantear una apertura gradual, empezando por accesos de solo lectura cuando sea posible. Meta Ads puede evolucionar hacia estructura, copies, variantes y optimización creativa; SharePoint puede ordenar documentación, assets, campañas y aprendizaje histórico.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const sections = {
+      overview: {
+        title: "De prompts aislados a sistema operativo de marketing",
+        subtitle: "Una capa común de inteligencia que entiende cada marca, account, campaña y proceso interno para producir con más velocidad, consistencia y control."
+      },
+      accounts: {
+        title: "Arquitectura por accounts y marcas",
+        subtitle: "Metodología común para el departamento, con conocimiento específico y protegido para cada cuenta."
+      },
+      skills: {
+        title: "Catálogo modular de Skills de Marketing IA",
+        subtitle: "Más de 50 capacidades especializadas, empezando por 12 Skills fundamentales para demostrar valor rápido."
+      },
+      roadmap: {
+        title: "Plan de 90 días",
+        subtitle: "Implantación controlada, medible y validada con Dirección y accounts."
+      },
+      governance: {
+        title: "Gobierno, validación y calidad",
+        subtitle: "El sistema aprende, pero siempre bajo criterios aprobados por el equipo y por Dirección."
+      },
+      integrations: {
+        title: "Evolución futura e integraciones",
+        subtitle: "De IA asistida a automatización conectada con producción, CRM, paid media y documentación."
+      }
+    };
+
+    const accounts = [
+      { id: "premium", name: "Proa Premium", brands: "BMW · MINI", context: "Brandbooks, tono premium, modelos, campañas y ejemplos aprobados", skills: 12, priority: "Piloto" },
+      { id: "dibauto", name: "Dibautoplus", brands: "Renault · Dacia · Alpine · Proa Renting", context: "Promociones, oferta comercial, targets y procesos internos", skills: 10, priority: "Extensión" },
+      { id: "hyundai", name: "Proa Automoción", brands: "Hyundai", context: "Modelos, campañas activas, mensajes comerciales y assets", skills: 8, priority: "Extensión" },
+      { id: "moto", name: "Proa Bikes / Motorrad", brands: "BMW Motorrad · universo moto y lifestyle", context: "Comunidad, lifestyle, producto, eventos y contenido social", skills: 8, priority: "Especialización" },
+      { id: "balear", name: "Proa Motor Balear", brands: "Honda · Xpeng", context: "Marca, innovación, argumentarios, lanzamientos y reporting", skills: 10, priority: "Piloto ampliado" }
+    ];
+
+    const skills = [
+      "Brandbook Interpreter", "Brand Voice Guardian", "Model Knowledge Builder", "Campaign Context Loader",
+      "Campaign Strategist", "Creative Idea Generator", "Social Content Factory", "Reel & Video Concept Director",
+      "Designer Brief Builder", "Editorial Calendar Creator", "Account Meeting Prep", "Executive Marketing Report Generator"
+    ];
+
+    const phases = [
+      ["Sem. 1-2", "Inventario documental", "Fuentes por account y marca"],
+      ["Sem. 3-4", "Skills base", "Estructura de conocimiento"],
+      ["Sem. 5-6", "Pilotos", "2-3 marcas prioritarias"],
+      ["Sem. 7-8", "Validación", "Tono, outputs y procesos"],
+      ["Sem. 9-10", "Extensión", "Resto de accounts"],
+      ["Sem. 11-12", "Reporting", "Aprendizajes y roadmap Fase 2"]
+    ];
+
+    function renderAccounts(filter = "all") {
+      const list = filter === "all" ? accounts : accounts.filter(a => a.id === filter);
+      const matrix = document.getElementById("accountMatrix");
+      matrix.innerHTML = `
+        <div class="head">Account</div><div class="head">Marcas</div><div class="head">Contexto</div>
+        ${list.map(a => `<div><strong>${a.name}</strong></div><div>${a.brands}</div><div>${a.context}</div>`).join("")}
+      `;
+
+      const cards = document.getElementById("accountCards");
+      cards.innerHTML = list.map(a => `
+        <div class="card">
+          <div class="kpi-value">${a.skills}</div>
+          <div class="kpi-label">Skills previstas para ${a.name}</div>
+        </div>
+        <div class="card">
+          <div class="kpi-value">${a.priority}</div>
+          <div class="kpi-label">prioridad de implantación</div>
+        </div>
+      `).join("");
+    }
+
+    function renderSkills() {
+      const list = document.getElementById("skillList");
+      list.innerHTML = skills.map((skill, index) => `
+        <div class="skill-item"><strong>${String(index + 1).padStart(2, "0")}</strong><span>${skill}</span></div>
+      `).join("");
+    }
+
+    function renderTimeline() {
+      const el = document.getElementById("timeline");
+      el.innerHTML = phases.map((phase, index) => `
+        <div class="phase ${index === 0 ? "current" : ""}">
+          <div class="phase-num">${phase[0]}</div>
+          <h3>${phase[1]}</h3>
+          <p>${phase[2]}</p>
+        </div>
+      `).join("");
+    }
+
+    document.querySelectorAll(".nav-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const target = btn.dataset.section;
+        document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
+        document.querySelectorAll(".section").forEach(s => s.classList.remove("active"));
+        document.getElementById(target).classList.add("active");
+        document.getElementById("pageTitle").textContent = sections[target].title;
+        document.getElementById("pageSubtitle").textContent = sections[target].subtitle;
+      });
+    });
+
+    document.getElementById("accountSelect").addEventListener("change", (event) => {
+      renderAccounts(event.target.value);
+      document.querySelector('[data-section="accounts"]').click();
+    });
+
+    renderAccounts();
+    renderSkills();
+    renderTimeline();
+  </script>
+</body>
+</html>
